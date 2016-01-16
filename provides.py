@@ -48,3 +48,9 @@ class BindRNDCProvides(RelationBase):
         for conv in self.conversations():
             conv.set_remote('rndckey', rndckey)
             conv.set_remote('algorithm', algorithm)
+
+    def client_ips(self):
+        ips = []
+        for conv in self.conversations():
+            ips.append(conv.get_remote('private-address'))
+        return ips
