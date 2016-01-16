@@ -21,7 +21,7 @@ from charms.reactive.bus import get_states
 from charmhelpers.core import hookenv
 
 
-class DNSBackendProvides(RelationBase):
+class BindRNDCProvides(RelationBase):
     scope = scopes.UNIT
 
     @hook('{provides:bind-rndc}-relation-joined')
