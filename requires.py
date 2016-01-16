@@ -21,7 +21,7 @@ class BindRNDCRequires(RelationBase):
 
     # These remote data fields will be automatically mapped to accessors
     # with a basic documentation string provided.
-    auto_accessors = ['algorithm', 'secret']
+    auto_accessors = ['algorithm', 'rndckey', 'private-address']
 
     @hook('{requires:bind-rndc}-relation-joined')
     def joined(self):
@@ -45,7 +45,8 @@ class BindRNDCRequires(RelationBase):
         """
         data = {
             'algorithm': self.algorithm(),
-            'secret': self.secret(),
+            'secret': self.rndckey(),
+            'private_address': self.private_address(),
         }
         if all(data.values()):
             return True
