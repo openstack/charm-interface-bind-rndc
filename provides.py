@@ -36,16 +36,7 @@ class BindRNDCProvides(RelationBase):
         conv = self.conversation()
         conv.remove_state('{relation_name}.related')
 
-    def send_rndckey_info(self):
-        key_file = '/etc/bind/rndc.key'
-        with open(key_file, 'r') as f:
-            content = f.readlines()
-        # XXX Naive parsing of keyfile
-        for line in content:
-            if line and line.split()[0] == 'algorithm':
-                algorithm = line.split()[1]
-            if line and line.split()[0] == 'secret':
-                rndckey = line.split()[1]
+    def send_rndckey_info(self, rndckey, algorithm):
         for conv in self.conversations():
             conv.set_remote('rndckey', rndckey)
             conv.set_remote('algorithm', algorithm)
