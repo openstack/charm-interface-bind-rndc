@@ -41,8 +41,7 @@ class BindRNDCRequires(RelationBase):
     def departed_or_broken(self):
         conv = self.conversation()
         conv.remove_state('{relation_name}.connected')
-        if not self.data_complete():
-            conv.remove_state('{relation_name}.available')
+        conv.remove_state('{relation_name}.available')
 
     def data_complete(self):
         """Check if all information for a RNDC connection has been sent
