@@ -18,6 +18,8 @@ from charms.reactive import RelationBase
 from charms.reactive import hook
 from charms.reactive import scopes
 
+from charmhelpers.contrib.network import ip as ch_ip
+
 
 class BindRNDCRequires(RelationBase):
     scope = scopes.UNIT
@@ -29,6 +31,8 @@ class BindRNDCRequires(RelationBase):
     def joined(self):
         conv = self.conversation()
         conv.set_state('{relation_name}.connected')
+        conv.set_remote('private-address',
+                        ch_ip.get_relation_ip(conv.relation_name))
 
     @hook('{requires:bind-rndc}-relation-changed')
     def changed(self):

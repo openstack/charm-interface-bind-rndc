@@ -20,6 +20,7 @@ from charms.reactive import scopes
 from charms.reactive.bus import get_states
 
 from charmhelpers.core import hookenv
+from charmhelpers.contrib.network import ip as ch_ip
 
 
 class BindRNDCProvides(RelationBase):
@@ -29,6 +30,8 @@ class BindRNDCProvides(RelationBase):
     def joined(self):
         conv = self.conversation()
         conv.set_state('{relation_name}.related')
+        conv.set_remote('private-address',
+                        ch_ip.get_relation_ip(conv.relation_name))
         hookenv.log('States: {}'.format(get_states().keys()))
 
     @hook('{provides:bind-rndc}-relation-departed')
