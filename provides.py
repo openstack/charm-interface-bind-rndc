@@ -49,3 +49,13 @@ class BindRNDCProvides(RelationBase):
         for conv in self.conversations():
             ips.append(conv.get_remote('private-address'))
         return ips
+
+    def egress_subnets(self):
+        cidrs = []
+        for conv in self.conversations():
+            egress_subnets = conv.get_remote('egress-subnets')
+            if egress_subnets:
+                # NOTE: egress-subnets is potentially a comma
+                #       delimited list
+                cidrs.extend(egress_subnets.split(','))
+        return cidrs
